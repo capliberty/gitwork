@@ -2,11 +2,26 @@
 #include <random>
 using namespace std;
 
-int fibonacci(int n) {
+int fibonacciTree(int n, int depth = 0) {
+    // Base case
     if (n <= 2) {
+        for (int i = 0; i < depth; ++i) {
+            cout << "  ";
+        }
+        cout << "fibonacci(" << n << ") " << n << endl;
         return n;
     }
-    return fibonacci(n - 1) + fibonacci(n - 2);
+
+    // Recursive calls with increased depth
+    int fib1 = fibonacciTree(n - 1, depth + 1);
+    int fib2 = fibonacciTree(n - 2, depth + 1);
+
+    for (int i = 0; i < depth; ++i) {
+        cout << "  ";
+    }
+    cout << "fibonacci(" << n << ") " << fib1 + fib2 << endl;
+
+    return fib1 + fib2;
 }
 
 void montyHall() {
@@ -53,7 +68,7 @@ int main() {
         int num;
         cout << "Enter a number: ";
         cin >> num;
-        cout << "Fibonacci number at position " << num << " is " << fibonacci(num) << endl;
+        cout << "Fibonacci number at position " << num << " is " << fibonacciTree(num) << endl;
     } else {
         cout << "Invalid choice!" << endl;
     }
